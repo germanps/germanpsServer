@@ -4,11 +4,13 @@ const User = require("../models/user");
 function singUp(req, res) {
     //Nueva instancia del modelo User
     const user = new User();
-    
+   
     const {email, password, repeatPassword} = req.body;
     user.email = email;
     user.role = "admin",
     user.active = false;
+
+    //console.log(req.body, user);
 
     if(!password || !repeatPassword){
         //Error campos vacios
@@ -24,7 +26,20 @@ function singUp(req, res) {
                 if(err){
                     res.status(500).send({ message: "Error al encriptar la contraseña" });
                 }else{
-                    res.status(200).send({ message: hash })
+                    //asignar password hasheado al objeto user
+                    user.password = hash;
+                    //enviar a mongo
+                    user.save((err, userStored) => {
+                        if(err){
+                            res.status(500).send({ message: "Error user duplicado..." })
+                        }else{
+                            if(!userStored){
+                                res.status(404).send({ message: "Error al crear usuario..." })
+                            }else{
+                                res.status(200).send({ user: userStored })
+                            }
+                        }
+                    })
                 }
             });
             //res.status(200).send({ message: "Usuario creado" });
