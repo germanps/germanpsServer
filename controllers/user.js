@@ -5,7 +5,9 @@ function singUp(req, res) {
     //Nueva instancia del modelo User
     const user = new User();
    
-    const {email, password, repeatPassword} = req.body;
+    const {name, lastname, email, password, repeatPassword} = req.body;
+    user.name = name;
+    user.lastname = lastname;
     user.email = email;
     user.role = "admin",
     user.active = false;
