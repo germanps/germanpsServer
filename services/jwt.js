@@ -14,7 +14,7 @@ exports.createAccessToken = function(user) {
         exp: moment().add(3, "hours").unix()
     };
 
-    return jwt.encode(payload, SECRET_KEY)
+    return jwt.encode(payload, SECRET_KEY);
 }
 
 exports.createRefreshToken = function(user) {
