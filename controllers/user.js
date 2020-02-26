@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt-nodejs");
 const jwt = require("../services/jwt");
 const User = require("../models/user");
 
-function singUp(req, res) {
+function signUp(req, res) {
     //Nueva instancia del modelo User
     const user = new User();
    
@@ -50,7 +50,7 @@ function singUp(req, res) {
     }
 }
 
-function singIn(req, res){
+function signIn(req, res){
     const params = req.body;
     const email = params.email.toLowerCase();
     const password = params.password;
@@ -92,6 +92,6 @@ function singIn(req, res){
 }
 
 module.exports = {
-    singUp,
-    singIn
-}
+    signUp,
+    signIn
+} 
