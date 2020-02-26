@@ -8,7 +8,7 @@ function singUp(req, res) {
     const {name, lastname, email, password, repeatPassword} = req.body;
     user.name = name;
     user.lastname = lastname;
-    user.email = email;
+    user.email = email.toLowerCase();
     user.role = "admin",
     user.active = false;
 
@@ -33,10 +33,10 @@ function singUp(req, res) {
                     //enviar a mongo
                     user.save((err, userStored) => {
                         if(err){
-                            res.status(500).send({ message: "Error user duplicado..." })
+                            res.status(500).send({ message: "El usuario ya existe" })
                         }else{
                             if(!userStored){
-                                res.status(404).send({ message: "Error al crear usuario..." })
+                                res.status(404).send({ message: "Error al crear usuario" })
                             }else{
                                 res.status(200).send({ user: userStored })
                             }
