@@ -66,7 +66,6 @@ function signIn(req, res){
             }else{
                 //bcrypt.compare(password, )
                 bcrypt.compare(password, userStoraged.password, (err, check) => {
-                    console.log(password, err, userStoraged);
                          
                     if(err){
                         res.status(500).send({ message: "Error del servidor" });
