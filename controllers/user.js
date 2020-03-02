@@ -91,7 +91,20 @@ function signIn(req, res){
     
 }
 
+function getUsers(req, res) {
+    User.find().then(users => {
+        if(!users){
+            //users viene vacio
+            res.status(404).send({ message:  "No se ha encontrado ningún usuario."});
+        }else{
+            res.status(200).send({ users });
+        }
+    })
+    
+}
+
 module.exports = {
     signUp,
-    signIn
+    signIn,
+    getUsers
 } 

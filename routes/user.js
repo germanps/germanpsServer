@@ -5,5 +5,6 @@ const api = express.Router();
 
 api.post("/sign-up", UserController.signUp);
 api.post("/sign-in", UserController.signIn);
+api.get("/users", UserController.getUsers);
 
 module.exports = api;
