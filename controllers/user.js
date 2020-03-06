@@ -176,6 +176,23 @@ function getAvatar (req, res) {
     
 }
 
+function updateUser(req, res){
+    const userData = req.body;
+    const params = req.params;
+
+    User.findByIdAndUpdate({ _id: params.id }, userData, (err, userUpdate) => {
+        if (err) {
+            res.status(500).send({ message: "Error del servidor." });
+        }else{
+            if (!userUpdate) {
+                res.status(404).send({ message: "Usuario no encontrado" });
+            }else{
+                res.status(200).send({ message: "Usuario actualizado correctamente." })
+            }
+        }
+    });
+}
+
 
 module.exports = {
     signUp,
@@ -183,5 +200,6 @@ module.exports = {
     getUsers,
     getUsersActive,
     uploadAvatar,
-    getAvatar
+    getAvatar,
+    updateUser
 } 
