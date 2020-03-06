@@ -16,6 +16,7 @@ api.put(
     "/upload-avatar/:id",
     [md_auth.ensureAuth, md_upload_avatar],
     UserController.uploadAvatar
-)
+);
+api.get("/get-avatar/:avatarName", UserController.getAvatar);
 
 module.exports = api;
