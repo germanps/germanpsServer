@@ -57,6 +57,8 @@ function signIn(req, res){
     const email = params.email.toLowerCase();
     const password = params.password;
 
+    
+
     User.findOne({email}, (err, userStoraged) => {
         // Lo que está dentro del send() es lo que se le va a enviar al front
         
@@ -68,6 +70,7 @@ function signIn(req, res){
             }else{
                 //bcrypt.compare(password, )
                 bcrypt.compare(password, userStoraged.password, (err, check) => {
+                         console.log(password, userStoraged.password, err, check);
                          
                     if(err){
                         res.status(500).send({ message: "Error del servidor" });
@@ -176,10 +179,21 @@ function getAvatar (req, res) {
     
 }
 
-function updateUser(req, res){
+async function updateUser(req, res){
     let userData = req.body;
     userData.email = req.body.email.toLowerCase();
-    const params = req.params;
+    const params = req.params;    
+
+    if (userData.password) {
+        //encriptar password
+        await bcrypt.hash(userData.password, null, null,  function(err, hash) {
+            if (err) {
+                res.status(500).send({ message: "Error al encriptar la contraseña." });
+            }else{
+                userData.password = hash;
+            }
+        });
+    };    
 
     User.findByIdAndUpdate({ _id: params.id }, userData, (err, userUpdate) => {
         if (err) {
@@ -193,6 +207,8 @@ function updateUser(req, res){
         }
     });
 }
+
+
 
 
 module.exports = {
