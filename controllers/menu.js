@@ -65,7 +65,7 @@ function activateMenu(req, res) {
                 res.status(404).send({ message: "No se ha encontrado ningún menú" });
             }else{
                 if(active === true){
-                    res.status(200).send({ message: "Menú actualizado correctamente!" });
+                    res.status(200).send({ message: "Menú activado correctamente!" });
                 }else{
                     res.status(200).send({ message: "Menú desactivado correctamente!" });
                 }
