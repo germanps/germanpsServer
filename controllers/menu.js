@@ -83,7 +83,7 @@ function deleteMenu(req, res) {
             if (!menuDeleted) {
                 res.status(404).send({ message: "Menú no encontrado" });
             }else{
-                res.status(500).send({ message: "Menú borrado correctamente"})
+                res.status(200).send({ message: "Menú borrado correctamente"})
             }
         }
     })
